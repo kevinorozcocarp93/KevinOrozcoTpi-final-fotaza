@@ -1,0 +1,18 @@
+doctype html
+html
+  head
+    title Login
+  body
+    h1 Iniciar sesión
+
+    form(action="/auth/login" method="POST")
+
+      div
+        label Email
+        input(type="email" name="email")
+
+      div
+        label Contraseña
+        input(type="password" name="password")
+
+      button(type="submit") Ingresar

@@ -8,6 +8,8 @@ const pgSession = require('connect-pg-simple')(session);
 const express = require('express');
 const path = require('path');
 
+const authRoutes = require('./routes/authRoutes');
+
 const app = express();
 
 app.set('view engine', 'pug');
@@ -30,6 +32,8 @@ app.use(session({
 }));
 
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use('/auth', authRoutes);
 
 app.get('/', (req, res) => {
     res.render('home');
