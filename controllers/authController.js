@@ -45,3 +45,43 @@ exports.register = async (req, res) => {
     }
 
 };
+
+exports.login = async (req, res) => {
+    try {
+
+        const { email, password } = req.body;
+
+        const usuario = await User.findOne({
+            where: { email }
+        });
+
+        if (!usuario) {
+            return res.send('Email o contraseña incorrectos');
+        }
+
+        const passwordCorrecta = await bcrypt.compare(
+            password,
+            usuario.password
+        );
+
+        if (!passwordCorrecta) {
+            return res.send('Email o contraseña incorrectos');
+        }
+
+        req.session.usuario = {
+            id: usuario.id,
+            nombre: usuario.nombre,
+            email: usuario.email,
+            rol_id: usuario.rol_id
+        };
+
+        res.redirect('/perfil');
+
+    } catch (error) {
+
+        console.log(error);
+
+        res.send('Error al iniciar sesión');
+
+    }
+};

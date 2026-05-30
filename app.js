@@ -3,7 +3,6 @@ require('dotenv').config();
 const sequelize = require('./config/database');
 
 const session = require('express-session');
-const pgSession = require('connect-pg-simple')(session);
 
 const express = require('express');
 const path = require('path');
@@ -19,10 +18,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use(session({
-    store: new pgSession({
-        conString: `postgres://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`
-    }),
-    secret: process.env.SESSION_SECRET,
+    secret: process.env.SESSION_SECRET || 'mi_secreto',
     resave: false,
     saveUninitialized: false,
     cookie: {
@@ -37,6 +33,16 @@ app.use('/auth', authRoutes);
 
 app.get('/', (req, res) => {
     res.render('home');
+});
+
+app.get('/perfil', (req, res) => {
+
+    if (!req.session.usuario) {
+        return res.redirect('/auth/login');
+    }
+
+    res.send(`Bienvenido ${req.session.usuario.nombre}`);
+
 });
 
 sequelize.authenticate()
