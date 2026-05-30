@@ -9,6 +9,8 @@ const path = require('path');
 
 const authRoutes = require('./routes/authRoutes');
 
+const authMiddleware = require('./middlewares/authMiddleware');
+
 const app = express();
 
 app.set('view engine', 'pug');
@@ -35,11 +37,7 @@ app.get('/', (req, res) => {
     res.render('home');
 });
 
-app.get('/perfil', (req, res) => {
-
-    if (!req.session.usuario) {
-        return res.redirect('/auth/login');
-    }
+app.get('/perfil', authMiddleware, (req, res) => {
 
     res.send(`Bienvenido ${req.session.usuario.nombre}`);
 
