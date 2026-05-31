@@ -8,8 +8,9 @@ const express = require('express');
 const path = require('path');
 
 const authRoutes = require('./routes/authRoutes');
+const userRoutes = require('./routes/userRoutes');
 
-const authMiddleware = require('./middlewares/authMiddleware');
+//const authMiddleware = require('./middlewares/authMiddleware');
 
 const app = express();
 
@@ -32,16 +33,12 @@ app.use(session({
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/auth', authRoutes);
+app.use('/', userRoutes);
 
 app.get('/', (req, res) => {
     res.render('home');
 });
 
-app.get('/perfil', authMiddleware, (req, res) => {
-
-    res.send(`Bienvenido ${req.session.usuario.nombre}`);
-
-});
 
 sequelize.authenticate()
     .then(() => {
