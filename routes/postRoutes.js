@@ -3,10 +3,16 @@ const router = express.Router();
 
 const authMiddleware = require('../middlewares/authMiddleware');
 const postController = require('../controllers/postController');
+const upload = require('../middlewares/uploadMiddleware');
 
 router.get('/create', authMiddleware, postController.showCreate);
 
-router.post('/create', authMiddleware, postController.create);
+router.post(
+    '/create',
+    authMiddleware,
+    upload.single('imagen'),
+    postController.create
+);
 
 router.get('/mis-posts',
     authMiddleware,

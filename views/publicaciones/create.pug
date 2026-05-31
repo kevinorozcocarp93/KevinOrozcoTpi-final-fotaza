@@ -7,7 +7,11 @@ html
 
     h1 Crear Publicación
 
-    form(action="/posts/create" method="POST")
+    form(
+      action="/posts/create"
+      method="POST"
+      enctype="multipart/form-data"
+    )
 
       div
         label Título
@@ -23,5 +27,18 @@ html
 
       br
 
-      button(type="submit")
-        | Guardar
+      div
+        label Imagen
+        br
+        input(
+          type="file"
+          name="imagen"
+          accept="image/*"
+        )
+
+      br
+
+      input(
+        type="submit"
+        value="Guardar Publicación"
+      )

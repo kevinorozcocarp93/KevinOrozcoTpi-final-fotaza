@@ -11,17 +11,23 @@ exports.create = async (req, res) => {
     try {
 
         const { titulo, descripcion } = req.body;
+        let nombreImagen = null;
+
+        if (req.file) {
+        nombreImagen = req.file.filename;
+        }
 
         await Post.create({
 
-            titulo,
-            descripcion,
-            fecha_publicacion: new Date(),
-            usuario_id: req.session.usuario.id
+        titulo,
+        descripcion,
+        imagen: nombreImagen,
+        fecha_publicacion: new Date(),
+        usuario_id: req.session.usuario.id
 
         });
 
-        res.redirect('/posts/mis-posts');
+    res.redirect('/posts/mis-posts');
 
     } catch (error) {
 

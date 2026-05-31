@@ -14,3 +14,10 @@ html
       h2= post.titulo
 
       p= post.descripcion
+
+      if post.imagen
+
+        img(
+          src=`/uploads/${post.imagen}`
+          width="300"
+        )
