@@ -9,6 +9,7 @@ const path = require('path');
 
 const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
+const postRoutes = require('./routes/postRoutes');
 
 //const authMiddleware = require('./middlewares/authMiddleware');
 
@@ -34,6 +35,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/auth', authRoutes);
 app.use('/', userRoutes);
+app.use('/posts', postRoutes);
 
 app.get('/', (req, res) => {
     res.render('home');

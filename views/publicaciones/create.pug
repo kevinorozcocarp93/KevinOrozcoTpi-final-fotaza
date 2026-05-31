@@ -1,0 +1,27 @@
+doctype html
+html
+  head
+    title Nueva Publicación
+
+  body
+
+    h1 Crear Publicación
+
+    form(action="/posts/create" method="POST")
+
+      div
+        label Título
+        br
+        input(type="text" name="titulo" required)
+
+      br
+
+      div
+        label Descripción
+        br
+        textarea(name="descripcion" rows="5")
+
+      br
+
+      button(type="submit")
+        | Guardar
