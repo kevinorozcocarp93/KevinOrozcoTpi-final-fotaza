@@ -53,3 +53,49 @@ exports.misPosts = async (req, res) => {
     });
 
 };
+exports.showEdit = async (req, res) => {
+
+    const post = await Post.findByPk(
+        req.params.id
+    );
+
+    if (!post) {
+        return res.send('Publicación no encontrada');
+    }
+
+    res.render(
+        'publicaciones/edit',
+        { post }
+    );
+
+};
+exports.update = async (req, res) => {
+
+    try {
+
+        const post = await Post.findByPk(
+            req.params.id
+        );
+
+        if (!post) {
+            return res.send('Publicación no encontrada');
+        }
+
+        await post.update({
+
+            titulo: req.body.titulo,
+            descripcion: req.body.descripcion
+
+        });
+
+        res.redirect('/posts/mis-posts');
+
+    } catch (error) {
+
+        console.log(error);
+
+        res.send('Error al actualizar');
+
+    }
+
+};

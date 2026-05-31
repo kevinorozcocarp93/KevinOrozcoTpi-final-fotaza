@@ -19,4 +19,16 @@ router.get('/mis-posts',
     postController.misPosts
 );
 
+router.get(
+    '/edit/:id',
+    authMiddleware,
+    postController.showEdit
+);
+
+router.post(
+    '/edit/:id',
+    authMiddleware,
+    postController.update
+);
+
 module.exports = router;

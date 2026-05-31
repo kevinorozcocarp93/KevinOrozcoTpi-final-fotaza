@@ -1,0 +1,31 @@
+doctype html
+html
+  head
+    title Buscador
+
+  body
+
+    h1 Buscar Publicaciones
+
+    form(action="/search" method="GET")
+
+      input(
+        type="text"
+        name="q"
+        value=termino
+      )
+
+      input(
+        type="submit"
+        value="Buscar"
+      )
+
+    hr
+
+    each post in posts
+
+      h2= post.titulo
+
+      p= post.descripcion
+
+      hr
