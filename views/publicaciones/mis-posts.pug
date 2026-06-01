@@ -7,6 +7,12 @@ html
 
     h1 Mis Publicaciones
 
+    a(href="/posts/create")
+      | ➕ Nueva publicación
+
+    br
+    br
+
     each post in posts
 
       hr
@@ -23,12 +29,23 @@ html
         )
 
       br
+      br
 
-      p ID: #{post.id}
+      a(href=`/posts/edit/${post.id}`)
+        | ✏️ Editar
 
-      a(href=`/posts/edit/${post.id}`) EDITAR PUBLICACION
+      |   
 
-      hr
+      form(
+        action=`/posts/delete/${post.id}`
+        method="POST"
+        style="display:inline;"
+      )
+
+        input(
+          type="submit"
+          value="🗑️ Eliminar"
+        )
 
       br
       br

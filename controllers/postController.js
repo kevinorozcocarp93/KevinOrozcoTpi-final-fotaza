@@ -99,3 +99,29 @@ exports.update = async (req, res) => {
     }
 
 };
+
+exports.delete = async (req, res) => {
+
+    try {
+
+        const post = await Post.findByPk(
+            req.params.id
+        );
+
+        if (!post) {
+            return res.send('Publicación no encontrada');
+        }
+
+        await post.destroy();
+
+        res.redirect('/posts/mis-posts');
+
+    } catch (error) {
+
+        console.log(error);
+
+        res.send('Error al eliminar publicación');
+
+    }
+
+};
