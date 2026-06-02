@@ -21,7 +21,11 @@ module.exports = (sequelize, DataTypes) => {
     User.hasMany(models.Comment, {
     foreignKey: 'usuario_id'
 });
-    }
+
+    User.hasMany(models.Like, {
+    foreignKey: 'usuario_id'
+});
+  }
   }
   User.init({
     nombre: DataTypes.STRING,

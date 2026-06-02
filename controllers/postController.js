@@ -1,4 +1,4 @@
-const { Post } = require('../models');
+const { Post, Comment, User, Like } = require('../models');
 
 exports.showCreate = (req, res) => {
 
@@ -44,7 +44,21 @@ exports.misPosts = async (req, res) => {
 
         where: {
             usuario_id: req.session.usuario.id
-        }
+        },
+
+        include: [
+            {
+                model: Comment,
+                include: [
+                    {
+                        model: User
+                    }
+                ]
+            },
+            {
+                model: Like
+            }
+        ]
 
     });
 

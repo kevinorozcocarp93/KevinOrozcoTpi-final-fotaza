@@ -11,6 +11,8 @@ const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
 const postRoutes = require('./routes/postRoutes');
 const searchRoutes = require('./routes/searchRoutes');
+const commentRoutes = require('./routes/commentRoutes');
+const likeRoutes = require('./routes/likeRoutes');
 
 //const authMiddleware = require('./middlewares/authMiddleware');
 
@@ -38,6 +40,8 @@ app.use('/auth', authRoutes);
 app.use('/', userRoutes);
 app.use('/posts', postRoutes);
 app.use('/search', searchRoutes);
+app.use('/comments', commentRoutes);
+app.use('/likes', likeRoutes);
 
 app.get('/', (req, res) => {
     res.render('home');

@@ -7,12 +7,6 @@ html
 
     h1 Mis Publicaciones
 
-    a(href="/posts/create")
-      | ➕ Nueva publicación
-
-    br
-    br
-
     each post in posts
 
       hr
@@ -22,30 +16,80 @@ html
       p= post.descripcion
 
       if post.imagen
-
         img(
           src=`/uploads/${post.imagen}`
           width="300"
         )
 
       br
+
+      p
+        strong 👍 #{post.Likes ? post.Likes.length : 0} Me gusta
+
+      form(
+        action=`/likes/${post.id}`
+        method="POST"
+      )
+        input(
+          type="submit"
+          value="Dar Like"
+        )
+
       br
 
       a(href=`/posts/edit/${post.id}`)
-        | ✏️ Editar
+        | Editar
 
-      |   
+      br
+      br
 
       form(
         action=`/posts/delete/${post.id}`
         method="POST"
-        style="display:inline;"
       )
+        input(
+          type="submit"
+          value="Eliminar"
+        )
+
+      br
+
+      form(
+        action=`/comments/create/${post.id}`
+        method="POST"
+      )
+
+        textarea(
+          name="contenido"
+          rows="3"
+          cols="40"
+          placeholder="Escribe un comentario..."
+          required
+        )
+
+        br
+        br
 
         input(
           type="submit"
-          value="🗑️ Eliminar"
+          value="Comentar"
         )
+
+      br
+
+      h3 Comentarios
+
+      if post.Comments && post.Comments.length > 0
+
+        each comentario in post.Comments
+
+          p
+            strong= comentario.User.nombre + ': '
+            | #{comentario.contenido}
+
+      else
+
+        p No hay comentarios todavía.
 
       br
       br
