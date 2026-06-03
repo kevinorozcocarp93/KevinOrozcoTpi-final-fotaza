@@ -85,3 +85,17 @@ exports.login = async (req, res) => {
 
     }
 };
+
+exports.logout = (req, res) => {
+
+    req.session.destroy((error) => {
+
+        if (error) {
+            return res.send('Error al cerrar sesión');
+        }
+
+        res.redirect('/auth/login');
+
+    });
+
+};

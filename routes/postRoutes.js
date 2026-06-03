@@ -37,4 +37,10 @@ router.post(
     postController.delete
 );
 
+router.get(
+    '/',
+    authMiddleware,
+    postController.feed
+);
+
 module.exports = router;

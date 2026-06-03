@@ -1,0 +1,55 @@
+doctype html
+html
+  head
+    title Feed General
+
+  body
+
+    a(href="/auth/logout")
+      | Cerrar Sesión
+
+    br
+    br
+
+    h1 Feed General de Publicaciones
+
+    each post in posts
+
+      hr
+
+      h2= post.titulo
+
+      p
+        strong Autor:
+        |  #{post.User.nombre}
+
+      p= post.descripcion
+
+      if post.imagen
+        img(
+          src=`/uploads/${post.imagen}`
+          width="300"
+        )
+
+      br
+
+      p
+        strong 👍 #{post.Likes.length} Me gusta
+
+      br
+
+      h3 Comentarios
+
+      if post.Comments.length > 0
+
+        each comentario in post.Comments
+
+          p
+            strong= comentario.User.nombre + ': '
+            | #{comentario.contenido}
+
+      else
+
+        p No hay comentarios todavía.
+
+      br

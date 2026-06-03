@@ -139,3 +139,36 @@ exports.delete = async (req, res) => {
     }
 
 };
+
+exports.feed = async (req, res) => {
+
+    const posts = await Post.findAll({
+
+        include: [
+            {
+                model: User
+            },
+            {
+                model: Comment,
+                include: [
+                    {
+                        model: User
+                    }
+                ]
+            },
+            {
+                model: Like
+            }
+        ],
+
+        order: [
+            ['fecha_publicacion', 'DESC']
+        ]
+
+    });
+
+    res.render('publicaciones/feed', {
+        posts
+    });
+
+};
