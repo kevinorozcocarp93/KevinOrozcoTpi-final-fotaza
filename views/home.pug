@@ -2,5 +2,41 @@ doctype html
 html
   head
     title Fotaza2
+
   body
-    h1 Bienvenido a Fotaza2
+
+    h1 Fotaza2
+
+    p
+      | Red social para compartir publicaciones e imágenes.
+
+    hr
+
+    h2 Accesos
+
+    ul
+
+      li
+        a(href="/auth/register")
+          | Registrarse
+
+      li
+        a(href="/auth/login")
+          | Iniciar Sesión
+
+      li
+        a(href="/posts")
+          | Ver Feed General
+
+      li
+        a(href="/posts/mis-posts")
+          | Mis Publicaciones
+
+      li
+        a(href="/perfil")
+          | Mi Perfil
+
+    hr
+
+    p
+      | Proyecto realizado con Node.js, Express, Sequelize y PostgreSQL.
