@@ -1,0 +1,50 @@
+nav.navbar.navbar-expand-lg.navbar-dark.bg-dark.fixed-top
+
+  .container
+
+    a.navbar-brand(
+      href="/posts"
+    )
+      | 📸 Fotaza
+
+    button.navbar-toggler(
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+    )
+
+      span.navbar-toggler-icon
+
+    .collapse.navbar-collapse#navbarNav
+
+      ul.navbar-nav.me-auto
+
+        li.nav-item
+
+          a.nav-link(
+            href="/posts"
+          )
+            | Feed
+
+        li.nav-item
+
+          a.nav-link(
+            href="/posts/mis-posts"
+          )
+            | Mis Publicaciones
+
+        li.nav-item
+
+          a.nav-link(
+            href="/perfil"
+          )
+            | Perfil
+
+      ul.navbar-nav
+
+        li.nav-item
+
+          a.nav-link.text-warning(
+            href="/auth/logout"
+          )
+            | Cerrar Sesión

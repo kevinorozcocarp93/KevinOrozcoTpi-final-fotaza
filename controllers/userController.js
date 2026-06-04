@@ -24,15 +24,23 @@ exports.perfil = async (req, res) => {
             }
         });
 
-        res.render('usuarios/perfil', {
+        let nombreRol = 'Usuario';
 
-            usuario: req.session.usuario,
+if (req.session.usuario.rol_id === 1) {
+    nombreRol = 'Administrador';
+}
 
-            cantidadPosts,
-            cantidadComentarios,
-            cantidadLikes
+    res.render('usuarios/perfil', {
 
-        });
+        usuario: req.session.usuario,
+
+        nombreRol,
+
+        cantidadPosts,
+        cantidadComentarios,
+        cantidadLikes
+
+    });
 
     } catch (error) {
 
