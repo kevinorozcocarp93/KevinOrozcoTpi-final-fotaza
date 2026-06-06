@@ -13,6 +13,7 @@ const postRoutes = require('./routes/postRoutes');
 const searchRoutes = require('./routes/searchRoutes');
 const commentRoutes = require('./routes/commentRoutes');
 const likeRoutes = require('./routes/likeRoutes');
+const followRoutes = require('./routes/followRoutes');
 
 //const authMiddleware = require('./middlewares/authMiddleware');
 
@@ -37,11 +38,12 @@ app.use(session({
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/auth', authRoutes);
-app.use('/', userRoutes);
+app.use('/usuarios', userRoutes);
 app.use('/posts', postRoutes);
 app.use('/search', searchRoutes);
 app.use('/comments', commentRoutes);
 app.use('/likes', likeRoutes);
+app.use('/follow', followRoutes);
 
 app.get('/', (req, res) => {
     res.render('home');

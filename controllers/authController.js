@@ -75,7 +75,7 @@ exports.login = async (req, res) => {
             rol_id: usuario.rol_id
         };
 
-        res.redirect('/perfil');
+        res.redirect('/usuarios/perfil');
 
     } catch (error) {
 

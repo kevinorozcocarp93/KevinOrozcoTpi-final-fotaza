@@ -2,18 +2,12 @@ const express = require('express');
 const router = express.Router();
 
 const authMiddleware = require('../middlewares/authMiddleware');
-const userController = require('../controllers/userController');
+const followController = require('../controllers/followController');
 
-router.get(
-    '/perfil',
-    authMiddleware,
-    userController.perfil
-);
-
-router.get(
+router.post(
     '/:id',
     authMiddleware,
-    userController.verUsuario
+    followController.followUser
 );
 
 module.exports = router;

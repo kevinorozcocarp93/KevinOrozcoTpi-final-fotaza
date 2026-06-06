@@ -25,6 +25,15 @@ module.exports = (sequelize, DataTypes) => {
     User.hasMany(models.Like, {
     foreignKey: 'usuario_id'
 });
+    User.hasMany(models.Follow, {
+    foreignKey: 'seguidor_id',
+    as: 'Siguiendo'
+});
+
+User.hasMany(models.Follow, {
+    foreignKey: 'seguido_id',
+    as: 'Seguidores'
+});
   }
   }
   User.init({
