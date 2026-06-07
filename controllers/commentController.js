@@ -12,7 +12,13 @@ exports.create = async (req, res) => {
 
         });
 
-        res.redirect('/posts/mis-posts');
+        if (req.body.origen === 'mis-posts') {
+
+            return res.redirect('/posts/mis-posts');
+
+        }
+
+        res.redirect('/posts');
 
     } catch (error) {
 

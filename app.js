@@ -36,6 +36,7 @@ app.use(session({
 }));
 
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/uploads', express.static('public/uploads'));
 
 app.use('/auth', authRoutes);
 app.use('/usuarios', userRoutes);

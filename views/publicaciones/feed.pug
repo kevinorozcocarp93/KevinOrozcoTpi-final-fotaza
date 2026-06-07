@@ -9,7 +9,9 @@ html
     )
 
   body.bg-light
+
     include ../partials/navbar
+
     .container.mt-5.pt-5
 
       .d-flex.justify-content-between.align-items-center.mb-4
@@ -37,19 +39,35 @@ html
             h3.card-title= post.titulo
 
             p.text-muted
+
               strong Autor:
-              |  #{post.User.nombre}
+
+              a.ms-1(
+                href=`/usuarios/${post.User.id}`
+              )
+                = post.User.nombre
 
             p.card-text= post.descripcion
 
             if post.imagen
 
-              img.img-fluid.rounded.mb-3(
+              img.rounded.mb-3.w-100(
                 src=`/uploads/${post.imagen}`
+                style="height:500px; object-fit:cover;"
               )
 
             p.fw-bold.text-primary
               | 👍 #{post.Likes.length} Me gusta
+
+            form(
+              action=`/likes/${post.id}`
+              method="POST"
+            )
+
+              button.btn.btn-outline-primary.mb-3(
+                type="submit"
+              )
+                | 👍 Dar Like
 
             h5.mt-4 Comentarios
 
@@ -66,6 +84,33 @@ html
             else
 
               p.text-muted No hay comentarios todavía.
+
+            hr
+
+            form(
+              action=`/comments/create/${post.id}`
+              method="POST"
+            )
+
+              input(
+                type="hidden"
+                name="origen"
+                value="feed"
+              )
+
+              .mb-3
+
+                textarea.form-control(
+                  name="contenido"
+                  rows="3"
+                  placeholder="Escribe un comentario..."
+                  required
+                )
+
+              button.btn.btn-success(
+                type="submit"
+              )
+                | Comentar
 
     script(
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

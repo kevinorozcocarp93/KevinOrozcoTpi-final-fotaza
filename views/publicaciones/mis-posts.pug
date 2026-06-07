@@ -9,7 +9,9 @@ html
     )
 
   body.bg-light
+
     include ../partials/navbar
+
     .container.mt-5.pt-5
 
       .d-flex.justify-content-between.align-items-center.mb-4
@@ -17,6 +19,11 @@ html
         h1 Mis Publicaciones
 
         div
+
+          a.btn.btn-success.me-2(
+            href="/posts/create"
+          )
+            | + Nueva Publicación
 
           a.btn.btn-primary.me-2(
             href="/posts"
@@ -33,88 +40,112 @@ html
           )
             | Cerrar Sesión
 
-      each post in posts
+      if posts.length === 0
 
-        .card.mb-4.shadow-sm
+        .alert.alert-info
 
-          .card-body
+          | Todavía no has realizado ninguna publicación.
 
-            h3.card-title= post.titulo
+      else
 
-            p.card-text= post.descripcion
+        each post in posts
 
-            if post.imagen
+          .card.mb-4.shadow-sm
 
-              img.img-fluid.rounded.mb-3(
-                src=`/uploads/${post.imagen}`
-              )
+            .card-body
 
-            p.fw-bold.text-primary
-              | 👍 #{post.Likes ? post.Likes.length : 0} Me gusta
+              h3.card-title= post.titulo
 
-            form(
-              action=`/likes/${post.id}`
-              method="POST"
-            )
+              p.text-muted
 
-              button.btn.btn-primary.mb-3(
-                type="submit"
-              )
-                | Dar Like
+                strong Autor:
 
-            .mb-3
+                a.ms-1(
+                  href=`/usuarios/${post.usuario_id}`
+                )
+                  | Ver Perfil
 
-              a.btn.btn-warning.me-2(
-                href=`/posts/edit/${post.id}`
-              )
-                | Editar
+              p.card-text= post.descripcion
 
-              form.d-inline(
-                action=`/posts/delete/${post.id}`
+              if post.imagen
+
+                img.rounded.mb-3.w-100(
+                  src=`/uploads/${post.imagen}`
+                  style="height:500px; object-fit:cover;"
+                )
+
+              p.fw-bold.text-primary
+                | 👍 #{post.Likes ? post.Likes.length : 0} Me gusta
+
+              form(
+                action=`/likes/${post.id}`
                 method="POST"
               )
 
-                button.btn.btn-danger(
+                button.btn.btn-primary.mb-3(
                   type="submit"
                 )
-                  | Eliminar
-
-            form(
-              action=`/comments/create/${post.id}`
-              method="POST"
-            )
+                  | Dar Like
 
               .mb-3
 
-                textarea.form-control(
-                  name="contenido"
-                  rows="3"
-                  placeholder="Escribe un comentario..."
-                  required
+                a.btn.btn-warning.me-2(
+                  href=`/posts/edit/${post.id}`
+                )
+                  | Editar
+
+                form.d-inline(
+                  action=`/posts/delete/${post.id}`
+                  method="POST"
                 )
 
-              button.btn.btn-success(
-                type="submit"
+                  button.btn.btn-danger(
+                    type="submit"
+                  )
+                    | Eliminar
+
+              form(
+                action=`/comments/create/${post.id}`
+                method="POST"
               )
-                | Comentar
 
-            hr
+                input(
+                  type="hidden"
+                  name="origen"
+                  value="mis-posts"
+                )
 
-            h5 Comentarios
+                .mb-3
 
-            if post.Comments && post.Comments.length > 0
+                  textarea.form-control(
+                    name="contenido"
+                    rows="3"
+                    placeholder="Escribe un comentario..."
+                    required
+                  )
 
-              each comentario in post.Comments
+                button.btn.btn-success(
+                  type="submit"
+                )
+                  | Comentar
 
-                .border.rounded.p-2.mb-2.bg-light
+              hr
 
-                  strong= comentario.User.nombre + ': '
+              h5 Comentarios
 
-                  | #{comentario.contenido}
+              if post.Comments && post.Comments.length > 0
 
-            else
+                each comentario in post.Comments
 
-              p.text-muted No hay comentarios todavía.
+                  .border.rounded.p-2.mb-2.bg-light
+
+                    strong= comentario.User.nombre + ': '
+
+                    | #{comentario.contenido}
+
+              else
+
+                p.text-muted No hay comentarios todavía.
 
     script(
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

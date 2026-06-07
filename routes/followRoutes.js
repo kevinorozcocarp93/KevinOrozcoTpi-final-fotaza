@@ -10,4 +10,10 @@ router.post(
     followController.followUser
 );
 
+router.post(
+    '/unfollow/:id',
+    authMiddleware,
+    followController.unfollowUser
+);
+
 module.exports = router;

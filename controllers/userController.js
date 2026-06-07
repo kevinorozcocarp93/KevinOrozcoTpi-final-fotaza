@@ -12,6 +12,10 @@ exports.perfil = async (req, res) => {
 
         const usuarioId = req.session.usuario.id;
 
+        const usuario = await User.findByPk(
+            usuarioId
+        );
+
         const cantidadPosts = await Post.count({
             where: {
                 usuario_id: usuarioId
@@ -32,21 +36,21 @@ exports.perfil = async (req, res) => {
 
         let nombreRol = 'Usuario';
 
-if (req.session.usuario.rol_id === 1) {
-    nombreRol = 'Administrador';
-}
+        if (usuario.rol_id === 1) {
+            nombreRol = 'Administrador';
+        }
 
-    res.render('usuarios/perfil', {
+        res.render('usuarios/perfil', {
 
-        usuario: req.session.usuario,
+            usuario,
 
-        nombreRol,
+            nombreRol,
 
-        cantidadPosts,
-        cantidadComentarios,
-        cantidadLikes
+            cantidadPosts,
+            cantidadComentarios,
+            cantidadLikes
 
-    });
+        });
 
     } catch (error) {
 
@@ -57,6 +61,7 @@ if (req.session.usuario.rol_id === 1) {
     }
 
 };
+
 exports.verUsuario = async (req, res) => {
 
     try {
@@ -91,22 +96,111 @@ exports.verUsuario = async (req, res) => {
                 }
             });
 
+        const publicaciones =
+            await Post.findAll({
+
+                where: {
+                    usuario_id: usuario.id
+                },
+
+                include: [
+                    Comment,
+                    Like
+                ],
+
+                order: [
+                    ['createdAt', 'DESC']
+                ]
+
+            });
+
         res.render(
-        'usuarios/ver-usuario',
-        {
-            usuario,
-            cantidadSeguidores,
-            cantidadSiguiendo,
-            yaLoSigo,
-            usuarioLogueado: req.session.usuario
-        }
-    );
+            'usuarios/ver-usuario',
+            {
+                usuario,
+                cantidadSeguidores,
+                cantidadSiguiendo,
+                yaLoSigo,
+                publicaciones,
+                usuarioLogueado: req.session.usuario
+            }
+        );
 
     } catch (error) {
 
         console.log(error);
 
         res.send('Error al cargar usuario');
+
+    }
+
+};
+
+exports.showEditarPerfil = async (req, res) => {
+
+    try {
+
+        const usuario = await User.findByPk(
+            req.session.usuario.id
+        );
+
+        res.render(
+            'usuarios/editar-perfil',
+            {
+                usuario
+            }
+        );
+
+    } catch (error) {
+
+        console.log(error);
+
+        res.send('Error al cargar edición de perfil');
+
+    }
+
+};
+
+exports.actualizarPerfil = async (req, res) => {
+
+    try {
+
+        const usuario = await User.findByPk(
+            req.session.usuario.id
+        );
+
+        if (!usuario) {
+            return res.send('Usuario no encontrado');
+        }
+
+        const datosActualizar = {
+
+            nombre: req.body.nombre,
+            bio: req.body.bio
+
+        };
+
+        if (req.file) {
+
+            datosActualizar.foto_perfil =
+                req.file.filename;
+
+        }
+
+        await usuario.update(
+            datosActualizar
+        );
+
+        req.session.usuario.nombre =
+            req.body.nombre;
+
+        res.redirect('/usuarios/perfil');
+
+    } catch (error) {
+
+        console.log(error);
+
+        res.send('Error al actualizar perfil');
 
     }
 

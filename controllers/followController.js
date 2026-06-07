@@ -27,13 +27,43 @@ exports.followUser = async (req, res) => {
 
         }
 
-        res.redirect('/posts');
+        res.redirect(`/usuarios/${seguido_id}`);
 
     } catch (error) {
 
         console.log(error);
 
         res.send('Error al seguir usuario');
+
+    }
+
+};
+
+exports.unfollowUser = async (req, res) => {
+
+    try {
+
+        const seguidor_id = req.session.usuario.id;
+        const seguido_id = req.params.id;
+
+        const follow = await Follow.findOne({
+            where: {
+                seguidor_id,
+                seguido_id
+            }
+        });
+
+        if (follow) {
+            await follow.destroy();
+        }
+
+        res.redirect(`/usuarios/${seguido_id}`);
+
+    } catch (error) {
+
+        console.log(error);
+
+        res.send('Error al dejar de seguir usuario');
 
     }
 
