@@ -1,7 +1,7 @@
 doctype html
 html
   head
-    title Usuario - Fotaza2
+    title Perfil de Usuario - Fotaza2
 
     link(
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
@@ -16,25 +16,57 @@ html
 
       .card.shadow.mb-4
 
-        .card-body
+        .card-body.text-center
+
+          if usuario.foto_perfil
+
+            img.rounded-circle.mb-3(
+              src=`/uploads/${usuario.foto_perfil}`
+              width="180"
+              height="180"
+              style="object-fit:cover;"
+            )
+
+          else
+
+            img.rounded-circle.mb-3(
+              src="https://via.placeholder.com/180"
+              width="180"
+              height="180"
+            )
 
           h2= usuario.nombre
 
-          p
-            strong Email:
-            |  #{usuario.email}
+          p.text-muted= usuario.email
+
+          if usuario.bio
+
+            p.mt-3= usuario.bio
+
+          else
+
+            p.text-muted
+              | Este usuario todavía no agregó una biografía.
 
           hr
 
-          p
-            strong Seguidores:
-            |  #{cantidadSeguidores}
+          .row.text-center
 
-          p
-            strong Siguiendo:
-            |  #{cantidadSiguiendo}
+            .col-md-6
+
+              h4.text-primary= cantidadSeguidores
+
+              p Seguidores
+
+            .col-md-6
+
+              h4.text-success= cantidadSiguiendo
+
+              p Siguiendo
 
           if usuario.id !== usuarioLogueado.id
+
+            hr
 
             if yaLoSigo
 

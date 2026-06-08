@@ -40,6 +40,20 @@ nav.navbar.navbar-expand-lg.navbar-dark.bg-dark.fixed-top
           )
             | Perfil
 
+        li.nav-item
+
+          a.nav-link(
+            href="/notificaciones"
+          )
+
+            if cantidadNotificaciones > 0
+
+              | 🔔 Notificaciones (#{cantidadNotificaciones})
+
+            else
+
+              | 🔔 Notificaciones
+
       ul.navbar-nav
 
         li.nav-item

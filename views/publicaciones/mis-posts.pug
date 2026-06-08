@@ -20,25 +20,10 @@ html
 
         div
 
-          a.btn.btn-success.me-2(
+          a.btn.btn-success(
             href="/posts/create"
           )
             | + Nueva Publicación
-
-          a.btn.btn-primary.me-2(
-            href="/posts"
-          )
-            | Feed General
-
-          a.btn.btn-secondary.me-2(
-            href="/usuarios/perfil"
-          )
-            | Mi Perfil
-
-          a.btn.btn-danger(
-            href="/auth/logout"
-          )
-            | Cerrar Sesión
 
       if posts.length === 0
 

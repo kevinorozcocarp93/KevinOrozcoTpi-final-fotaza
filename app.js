@@ -14,6 +14,8 @@ const searchRoutes = require('./routes/searchRoutes');
 const commentRoutes = require('./routes/commentRoutes');
 const likeRoutes = require('./routes/likeRoutes');
 const followRoutes = require('./routes/followRoutes');
+const notificationRoutes = require('./routes/notificationRoutes');
+const notificationMiddleware = require('./middlewares/notificationMiddleware');
 
 //const authMiddleware = require('./middlewares/authMiddleware');
 
@@ -36,6 +38,7 @@ app.use(session({
 }));
 
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(notificationMiddleware);
 app.use('/uploads', express.static('public/uploads'));
 
 app.use('/auth', authRoutes);
@@ -45,6 +48,7 @@ app.use('/search', searchRoutes);
 app.use('/comments', commentRoutes);
 app.use('/likes', likeRoutes);
 app.use('/follow', followRoutes);
+app.use('/notificaciones', notificationRoutes);
 
 app.get('/', (req, res) => {
     res.render('home');

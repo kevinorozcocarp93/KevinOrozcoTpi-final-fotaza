@@ -22,7 +22,14 @@ html
 
             .card-header.bg-primary.text-white
 
-              h2.mb-0 Perfil de Usuario
+              .d-flex.justify-content-between.align-items-center
+
+                h2.mb-0 Perfil de Usuario
+
+                a.btn.btn-warning.btn-sm(
+                  href="/usuarios/editar"
+                )
+                  | Editar Perfil
 
             .card-body.text-center
 
@@ -105,30 +112,6 @@ html
                       h2.text-warning= cantidadLikes
 
                       p Likes
-
-              hr
-
-              .d-flex.justify-content-center.gap-2.flex-wrap
-
-                a.btn.btn-warning(
-                  href="/usuarios/editar"
-                )
-                  | Editar Perfil
-
-                a.btn.btn-primary(
-                  href="/posts"
-                )
-                  | Feed General
-
-                a.btn.btn-success(
-                  href="/posts/mis-posts"
-                )
-                  | Mis Publicaciones
-
-                a.btn.btn-danger(
-                  href="/auth/logout"
-                )
-                  | Cerrar Sesión
 
     script(
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

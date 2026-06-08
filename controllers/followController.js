@@ -1,4 +1,4 @@
-const { Follow } = require('../models');
+const { Follow, Notification } = require('../models');
 
 exports.followUser = async (req, res) => {
 
@@ -23,6 +23,18 @@ exports.followUser = async (req, res) => {
             await Follow.create({
                 seguidor_id,
                 seguido_id
+            });
+
+            await Notification.create({
+
+                mensaje:
+                    req.session.usuario.nombre +
+                    ' comenzó a seguirte',
+
+                usuario_id: seguido_id,
+
+                leida: false
+
             });
 
         }

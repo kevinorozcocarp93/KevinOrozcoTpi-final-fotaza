@@ -34,6 +34,9 @@ User.hasMany(models.Follow, {
     foreignKey: 'seguido_id',
     as: 'Seguidores'
 });
+User.hasMany(models.Notification, {
+    foreignKey: 'usuario_id'
+});
   }
   }
   User.init({
