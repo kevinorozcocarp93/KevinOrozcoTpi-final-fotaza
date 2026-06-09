@@ -1,103 +1,146 @@
 doctype html
 html
-  head
-    title Feed General - Fotaza2
+head
+title Feed General - Fotaza2
 
-    link(
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    )
 
-  body.bg-light
+link(
+  href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+  rel="stylesheet"
+)
 
-    include ../partials/navbar
 
-    .container.mt-5.pt-5
+body.bg-light
 
-      h1.mb-4 Feed General
 
-      each post in posts
+include ../partials/navbar
 
-        .card.mb-4.shadow-sm
+.container.mt-5.pt-5
 
-          .card-body
+  h1.mb-4 Feed General
 
-            h3.card-title= post.titulo
+  each post in posts
 
-            p.text-muted
+    .card.mb-4.shadow-sm
 
-              strong Autor:
+      .card-body
 
-              a.ms-1(
-                href=`/usuarios/${post.User.id}`
-              )
-                = post.User.nombre
+        h3.card-title= post.titulo
 
-            p.card-text= post.descripcion
+        p.text-muted
 
-            if post.imagen
+          strong Autor:
 
-              img.rounded.mb-3.w-100(
-                src=`/uploads/${post.imagen}`
-                style="height:500px; object-fit:cover;"
-              )
+          a.ms-1(
+            href=`/usuarios/${post.User.id}`
+          )
+            = post.User.nombre
 
-            p.fw-bold.text-primary
-              | 👍 #{post.Likes.length} Me gusta
+        p.card-text= post.descripcion
 
-            form(
-              action=`/likes/${post.id}`
-              method="POST"
+        if post.imagen
+
+          img.rounded.mb-3.w-100(
+            src=`/uploads/${post.imagen}`
+            style="height:500px; object-fit:cover;"
+          )
+
+        p.fw-bold.text-primary
+          | 👍 #{post.Likes.length} Me gusta
+
+        p.fw-bold.text-warning
+          = `${post.estrellas} ${post.promedioRating}/5 (${post.Ratings.length} votos)`        
+
+        .mb-3
+
+          form.d-flex.gap-2(
+            action=`/ratings/${post.id}`
+            method="POST"
+          )
+
+            select.form-select(
+              name="valor"
+              style="max-width: 200px;"
+              required
             )
 
-              button.btn.btn-outline-primary.mb-3(
-                type="submit"
-              )
-                | 👍 Dar Like
+              option(value="")
+                | Valorar publicación
 
-            h5.mt-4 Comentarios
+              option(value="1")
+                | ⭐ 1
 
-            if post.Comments.length > 0
+              option(value="2")
+                | ⭐⭐ 2
 
-              each comentario in post.Comments
+              option(value="3")
+                | ⭐⭐⭐ 3
 
-                .border.rounded.p-2.mb-2.bg-light
+              option(value="4")
+                | ⭐⭐⭐⭐ 4
 
-                  strong= comentario.User.nombre + ': '
+              option(value="5")
+                | ⭐⭐⭐⭐⭐ 5
 
-                  | #{comentario.contenido}
+            button.btn.btn-warning(
+              type="submit"
+            )
+              | Enviar valoración
 
-            else
+        form(
+          action=`/likes/${post.id}`
+          method="POST"
+        )
 
-              p.text-muted No hay comentarios todavía.
+          button.btn.btn-outline-primary.mb-3(
+            type="submit"
+          )
+            | 👍 Dar Like
 
-            hr
+        h5.mt-4 Comentarios
 
-            form(
-              action=`/comments/create/${post.id}`
-              method="POST"
+        if post.Comments.length > 0
+
+          each comentario in post.Comments
+
+            .border.rounded.p-2.mb-2.bg-light
+
+              strong= comentario.User.nombre + ': '
+
+              | #{comentario.contenido}
+
+        else
+
+          p.text-muted No hay comentarios todavía.
+
+        hr
+
+        form(
+          action=`/comments/create/${post.id}`
+          method="POST"
+        )
+
+          input(
+            type="hidden"
+            name="origen"
+            value="feed"
+          )
+
+          .mb-3
+
+            textarea.form-control(
+              name="contenido"
+              rows="3"
+              placeholder="Escribe un comentario..."
+              required
             )
 
-              input(
-                type="hidden"
-                name="origen"
-                value="feed"
-              )
+          button.btn.btn-success(
+            type="submit"
+          )
+            | Comentar
 
-              .mb-3
+script(
+  src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+)
 
-                textarea.form-control(
-                  name="contenido"
-                  rows="3"
-                  placeholder="Escribe un comentario..."
-                  required
-                )
-
-              button.btn.btn-success(
-                type="submit"
-              )
-                | Comentar
-
-    script(
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-    )

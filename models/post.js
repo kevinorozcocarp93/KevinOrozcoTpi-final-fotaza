@@ -23,6 +23,10 @@ module.exports = (sequelize, DataTypes) => {
     foreignKey: 'post_id'
     });
 
+    Post.hasMany(models.Rating, {
+    foreignKey: 'post_id'
+    });
+
 
   }
   }

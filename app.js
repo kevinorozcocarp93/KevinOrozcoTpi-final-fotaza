@@ -16,6 +16,7 @@ const likeRoutes = require('./routes/likeRoutes');
 const followRoutes = require('./routes/followRoutes');
 const notificationRoutes = require('./routes/notificationRoutes');
 const notificationMiddleware = require('./middlewares/notificationMiddleware');
+const ratingRoutes = require('./routes/ratingRoutes');
 
 //const authMiddleware = require('./middlewares/authMiddleware');
 
@@ -49,6 +50,7 @@ app.use('/comments', commentRoutes);
 app.use('/likes', likeRoutes);
 app.use('/follow', followRoutes);
 app.use('/notificaciones', notificationRoutes);
+app.use('/ratings', ratingRoutes);
 
 app.get('/', (req, res) => {
     res.render('home');
