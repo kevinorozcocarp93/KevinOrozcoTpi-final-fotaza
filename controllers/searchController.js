@@ -1,25 +1,51 @@
-const { Post } = require('../models');
+const { Post, User } = require('../models');
 const { Op } = require('sequelize');
 
 exports.search = async (req, res) => {
 
-    const termino = req.query.q || '';
+    try {
 
-    const posts = await Post.findAll({
+        const termino = req.query.q || '';
 
-        where: {
+        const posts = await Post.findAll({
 
-            titulo: {
-                [Op.iLike]: `%${termino}%`
+            where: {
+
+                titulo: {
+                    [Op.iLike]: `%${termino}%`
+                }
+
             }
 
-        }
+        });
 
-    });
+        const usuarios = await User.findAll({
 
-    res.render('publicaciones/search', {
-        posts,
-        termino
-    });
+            where: {
+
+                nombre: {
+                    [Op.iLike]: `%${termino}%`
+                }
+
+            }
+
+        });
+
+        res.render(
+            'publicaciones/search',
+            {
+                posts,
+                usuarios,
+                termino
+            }
+        );
+
+    } catch (error) {
+
+        console.log(error);
+
+        res.send('Error en la búsqueda');
+
+    }
 
 };
