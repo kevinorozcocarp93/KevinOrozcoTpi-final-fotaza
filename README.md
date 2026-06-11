@@ -1,5 +1,9 @@
 # 📸 Fotaza 2 - Red Social de Fotografías
 
+profe: Tuve un problema en Render, tuve que cambiarle el Build command y lo solucioné poniendo
+npm install && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all
+Le dejé ese porque logré que funcionara luego de renegar bastante.
+
 Le dejo 2 perfiles para poder entrar y probar la app, aunque puede crear su propia cuenta registrandose.
 
 Cuenta1: kevin@mail.com
