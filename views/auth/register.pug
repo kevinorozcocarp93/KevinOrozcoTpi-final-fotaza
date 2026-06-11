@@ -23,6 +23,10 @@ html
 
             .card-body
 
+              if error
+                .alert.alert-danger
+                  = error
+
               form(
                 action="/auth/register"
                 method="POST"

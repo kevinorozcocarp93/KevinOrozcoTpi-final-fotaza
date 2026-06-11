@@ -1,5 +1,4 @@
 const bcrypt = require('bcrypt');
-
 const { User } = require('../models');
 
 exports.showRegister = (req, res) => {
@@ -21,7 +20,11 @@ exports.register = async (req, res) => {
         });
 
         if (existeUsuario) {
-            return res.send('El email ya está registrado');
+
+            return res.render('auth/register', {
+                error: 'El email ya está registrado'
+            });
+
         }
 
         const passwordHash = await bcrypt.hash(password, 10);
@@ -34,19 +37,22 @@ exports.register = async (req, res) => {
             rol_id: 2
         });
 
-        res.send('Usuario registrado correctamente');
+        return res.redirect('/auth/login');
 
     } catch (error) {
 
         console.log(error);
 
-        res.send('Error al registrar usuario');
+        return res.render('auth/register', {
+            error: 'Error al registrar usuario'
+        });
 
     }
 
 };
 
 exports.login = async (req, res) => {
+
     try {
 
         const { email, password } = req.body;
@@ -56,7 +62,11 @@ exports.login = async (req, res) => {
         });
 
         if (!usuario) {
-            return res.send('Email o contraseña incorrectos');
+
+            return res.render('auth/login', {
+                error: 'Email o contraseña incorrectos'
+            });
+
         }
 
         const passwordCorrecta = await bcrypt.compare(
@@ -65,7 +75,11 @@ exports.login = async (req, res) => {
         );
 
         if (!passwordCorrecta) {
-            return res.send('Email o contraseña incorrectos');
+
+            return res.render('auth/login', {
+                error: 'Email o contraseña incorrectos'
+            });
+
         }
 
         req.session.usuario = {
@@ -75,15 +89,18 @@ exports.login = async (req, res) => {
             rol_id: usuario.rol_id
         };
 
-        res.redirect('/usuarios/perfil');
+        return res.redirect('/usuarios/perfil');
 
     } catch (error) {
 
         console.log(error);
 
-        res.send('Error al iniciar sesión');
+        return res.render('auth/login', {
+            error: 'Error al iniciar sesión'
+        });
 
     }
+
 };
 
 exports.logout = (req, res) => {
