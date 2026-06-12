@@ -24,7 +24,7 @@ try {
 
     if (req.file) {
 
-        nombreImagen = req.file.filename;
+        nombreImagen = req.file.path;
 
     }
 
@@ -47,7 +47,6 @@ try {
     res.send('Error al crear publicación');
 
 }
-
 
 };
 
