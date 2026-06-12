@@ -4,6 +4,8 @@ profe: Tuve un problema en Render, tuve que cambiarle el Build command y lo solu
 npm install && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all
 Le dejé ese porque logré que funcionara luego de renegar bastante.
 
+start command: npm run start
+
 Le dejo 2 perfiles para poder entrar y probar la app, aunque puede crear su propia cuenta registrandose.
 
 Cuenta1: kevin@mail.com
@@ -48,6 +50,42 @@ routes/
 views/
 config/
 ```
+
+---
+## Inicialización de la Base de Datos
+
+El proyecto utiliza Sequelize ORM con PostgreSQL.
+
+Para crear todas las tablas y cargar los datos iniciales se debe ejecutar:
+
+```bash
+npm run db:init
+```
+
+Este comando ejecuta:
+
+```bash
+npx sequelize-cli db:migrate
+npx sequelize-cli db:seed:all
+```
+
+Las migraciones crean automáticamente las tablas:
+
+* Roles
+* Users
+* Posts
+* Comments
+* Likes
+* Follows
+* Notifications
+* Ratings
+
+Los seeders cargan los roles iniciales del sistema:
+
+* admin
+* usuario
+* validador
+
 
 ---
 
