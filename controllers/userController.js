@@ -183,7 +183,7 @@ exports.actualizarPerfil = async (req, res) => {
         if (req.file) {
 
             datosActualizar.foto_perfil =
-                req.file.filename;
+                req.file.path;
 
         }
 

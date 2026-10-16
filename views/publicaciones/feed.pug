@@ -41,7 +41,7 @@ include ../partials/navbar
         if post.imagen
 
           img.rounded.mb-3.w-100(
-            src=`/uploads/${post.imagen}`
+            src=post.imagen
             style="height:500px; object-fit:cover;"
           )
 

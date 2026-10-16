@@ -1,22 +1,14 @@
 const multer = require('multer');
-const path = require('path');
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
 
-const storage = multer.diskStorage({
+const cloudinary = require('../config/cloudinary');
 
-    destination: (req, file, cb) => {
-        cb(null, 'public/uploads');
-    },
-
-    filename: (req, file, cb) => {
-
-        const nombreArchivo =
-            Date.now() +
-            path.extname(file.originalname);
-
-        cb(null, nombreArchivo);
-
+const storage = new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params: {
+        folder: 'fotaza',
+        allowed_formats: ['jpg', 'jpeg', 'png', 'gif', 'webp']
     }
-
 });
 
 const upload = multer({
