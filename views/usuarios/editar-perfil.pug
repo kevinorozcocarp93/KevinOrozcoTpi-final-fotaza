@@ -63,7 +63,8 @@ html
                 p Foto actual:
 
                 img.rounded-circle(
-                  src=`/uploads/${usuario.foto_perfil}`
+                  src=usuario.foto_perfil
+                  alt="Foto de perfil actual"
                   width="150"
                   height="150"
                   style="object-fit:cover;"

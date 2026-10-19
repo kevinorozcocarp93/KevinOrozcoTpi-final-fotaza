@@ -21,7 +21,7 @@ html
           if usuario.foto_perfil
 
             img.rounded-circle.mb-3(
-              src=usuario.foto_perfil
+              src=usuario.foto_perfil.startsWith('http') ? usuario.foto_perfil : '/uploads/' + usuario.foto_perfil
               width="180"
               height="180"
               style="object-fit:cover;"
@@ -109,7 +109,7 @@ html
               if post.imagen
 
                 img.rounded.mb-3.w-100(
-                  src=`/uploads/${post.imagen}`
+                  src=post.imagen.startsWith('http') ? post.imagen : '/uploads/' + post.imagen
                   style="height:500px; object-fit:cover;"
                 )
 
@@ -119,7 +119,6 @@ html
       else
 
         .alert.alert-info
-
           | Este usuario todavía no tiene publicaciones.
 
     script(

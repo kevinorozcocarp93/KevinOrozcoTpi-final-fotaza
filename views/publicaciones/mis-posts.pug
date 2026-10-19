@@ -55,7 +55,7 @@ html
               if post.imagen
 
                 img.rounded.mb-3.w-100(
-                  src=post.imagen
+                  src=post.imagen.startsWith('http') ? post.imagen : '/uploads/' + post.imagen
                   style="height:500px; object-fit:cover;"
                 )
 
